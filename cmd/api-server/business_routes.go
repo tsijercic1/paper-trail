@@ -10,7 +10,6 @@ import (
 )
 
 func RegisterBusinessRoutes(router *gin.Engine, businessService *service.BusinessService) {
-	// Create a new business
 	router.POST("/business", func(c *gin.Context) {
 		var business model.Business
 		if err := c.ShouldBindJSON(&business); err != nil {
@@ -24,7 +23,6 @@ func RegisterBusinessRoutes(router *gin.Engine, businessService *service.Busines
 		c.JSON(http.StatusCreated, business)
 	})
 
-	// Get a business by ID
 	router.GET("/business/:id", func(c *gin.Context) {
 		id := c.Param("id")
 		intID, err := strconv.Atoi(id)
@@ -40,7 +38,6 @@ func RegisterBusinessRoutes(router *gin.Engine, businessService *service.Busines
 		c.JSON(http.StatusOK, business)
 	})
 
-	// Update a business
 	router.PUT("/business/:id", func(c *gin.Context) {
 		var business model.Business
 		if err := c.ShouldBindJSON(&business); err != nil {
@@ -54,7 +51,6 @@ func RegisterBusinessRoutes(router *gin.Engine, businessService *service.Busines
 		c.JSON(http.StatusOK, business)
 	})
 
-	// Delete a business
 	router.DELETE("/business/:id", func(c *gin.Context) {
 		id := c.Param("id")
 		intID, err := strconv.Atoi(id)
@@ -69,7 +65,6 @@ func RegisterBusinessRoutes(router *gin.Engine, businessService *service.Busines
 		c.JSON(http.StatusNoContent, nil)
 	})
 
-	// Get paginated businesses
 	router.GET("/business", func(c *gin.Context) {
 		pageNumber, err := strconv.Atoi(c.DefaultQuery("pageNumber", "0"))
 		if err != nil {
