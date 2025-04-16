@@ -4,6 +4,8 @@ import (
 	"paper-trail/internal/repository"
 	"paper-trail/internal/service"
 
+	"paper-trail/cmd/api-server/routes"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -21,7 +23,7 @@ func main() {
 		c.String(200, "Hello, World!")
 	})
 
-	RegisterBusinessRoutes(router, businessService)
+	routes.RegisterBusinessRoutes(router, businessService)
 
 	port := ":8080"
 	router.Run(port)

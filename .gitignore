@@ -1,0 +1,46 @@
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Directories
+bin/
+obj/
+
+# Logs
+*.log
+
+# IDE specific files
+.idea/
+.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Dependency directories
+vendor/
+
+# Go modules
+go.sum
+
+# Build artifacts
+*.o
+*.a
+*.lo
+*.la
+*.lai
+*.so
+*.dylib
+*.dll
+*.exe
+*.out
+*.test
+
+# Test binary
+testbin/

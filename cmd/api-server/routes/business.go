@@ -1,8 +1,9 @@
-package main
+package routes
 
 import (
 	"net/http"
-	"paper-trail/internal/model"
+	"paper-trail/cmd/api-server/model"
+	internalModel "paper-trail/internal/model"
 	"paper-trail/internal/service"
 	"strconv"
 
@@ -11,12 +12,21 @@ import (
 
 func RegisterBusinessRoutes(router *gin.Engine, businessService *service.BusinessService) {
 	router.POST("/business", func(c *gin.Context) {
-		var business model.Business
-		if err := c.ShouldBindJSON(&business); err != nil {
+		var createRequest model.CreateBusinessRequest
+		if err := c.ShouldBindJSON(&createRequest); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
-		if err := businessService.CreateBusiness(&business); err != nil {
+
+		business := &internalModel.Business{
+			Name:       createRequest.Name,
+			City:       createRequest.City,
+			Address:    createRequest.Address,
+			BusinessID: createRequest.BusinessID,
+			TaxID:      createRequest.TaxID,
+		}
+
+		if err := businessService.CreateBusiness(business); err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
@@ -39,7 +49,7 @@ func RegisterBusinessRoutes(router *gin.Engine, businessService *service.Busines
 	})
 
 	router.PUT("/business/:id", func(c *gin.Context) {
-		var business model.Business
+		var business internalModel.Business
 		if err := c.ShouldBindJSON(&business); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
